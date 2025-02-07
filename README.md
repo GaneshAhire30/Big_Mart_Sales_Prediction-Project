@@ -38,22 +38,48 @@ The dataset used for this project consists of the following columns:
 
 ### Data Preprocessing
 
-- Handle missing values.
-- Encode categorical variables.
-- Scale and normalize features.
-- Ensure consistency between training and test datasets.
+* Missing Value Treatment:
+    * Item_Weight: Imputed missing values using the mean weight per product category.
+    * Outlet_Size: Filled missing entries based on the mode of Outlet_Type.
+* Outlier Detection and Handling:
+    * Identified and capped outliers in Item_Visibility using the Interquartile Range (IQR) method.
+* Categorical Encoding:
+    * Standardized categories in Item_Fat_Content to ensure consistency.
+    * Applied label encoding and one-hot encoding to transform categorical variables into numerical formats.
+* Feature Scaling:
+    * Standardized continuous variables to ensure uniformity across features.
 
 ### Feature Engineering
 
-- Add derived features like **Outlet_Age**.
-- Drop less significant features (e.g., **Item_Identifier**).
+* New Feature Creation:
+    * Outlet_Age: Calculated as the difference between the current year and Outlet_Establishment_Year.
+* Transformation:
+    * Applied log transformation to Item_Outlet_Sales to normalize its distribution.
 
 ### Model Training and Evaluation
 
-- Experimented with multiple regression models: **Gradient Boosting**, **LightGBM**, **XGBRF**.
-- Used **RandomizedSearchCV** for hyperparameter optimization.
-- Evaluated performance using metrics such as **R² Score**, **MAE**, and **RMSE**.
+Implemented and evaluated multiple regression models:
 
+* Linear Regression
+* Decision Tree Regressor
+* Random Forest Regressor
+* Gradient Boosting Regressor
+* XGBoost Regressor
+* LightGBM Regressor
+* CatBoost Regressor
+* Support Vector Regressor (SVR)
+* Artificial Neural Networks (ANNs)
+### Ensemble Techniques:
+
+* Stacking Regressor: Combined multiple models to leverage their individual strengths.
+* Voting Regressor: Aggregated predictions from various models to enhance accuracy.
+### Hyperparameter Tuning:
+
+* Employed RandomizedSearchCV for optimizing model parameters.
+### Evaluation Metrics:
+
+* R² Score: Indicates the proportion of variance explained by the model.
+* Root Mean Squared Error (RMSE): Measures the average magnitude of the prediction errors.
 ### Prediction and Submission
 
 - Applied the trained model to predict sales on the test dataset.
@@ -82,10 +108,33 @@ The model was evaluated using the following metrics:
 
 ## Technologies Used
 
-- **Python** (pandas, numpy, scikit-learn, xgboost, lightgbm)
-- **Jupyter Notebook**
-- **Matplotlib** and **Seaborn** (for visualizations)
-- **Pickle** (for model persistence)
-
+* Programming Language: Python
+* Libraries:
+    * Data Manipulation: pandas, numpy
+    * Visualization: matplotlib, seaborn
+    * Machine Learning: scikit-learn, xgboost, lightgbm, catboost
+    * Deep Learning: tensorflow, keras
+    * Model Persistence: pickle
+* Development Environment: Jupyter Notebook
 ## Results
-- The trained model achieved strong performance with an R² score of 0.739 on unseen test data. Predictions have been saved in submission_1.csv.
+The ensemble models, particularly the Stacking Regressor, demonstrated superior performance:
+
+* Stacking Regressor:
+
+    * Train R²: 77.51%
+    * Test R²: 74.20%
+    * Test RMSE: 0.521
+* Voting Regressor:
+
+    * Test R²: 74.00%
+    * Test RMSE: 0.523
+These results underscore the efficacy of ensemble techniques in capturing complex patterns within the data.
+
+# Conclusion
+The Big Mart Sales Prediction project successfully developed predictive models to forecast product sales across various outlets. Through meticulous data preprocessing, feature engineering, and the application of advanced modeling techniques, the project achieved robust predictive performance. The insights derived can assist Big Mart in optimizing inventory management and formulating data-driven business strategies.
+
+# Acknowledgements
+We extend our gratitude to the data science community for their invaluable resources and support, which significantly contributed to the success of this project.
+
+
+Sources
